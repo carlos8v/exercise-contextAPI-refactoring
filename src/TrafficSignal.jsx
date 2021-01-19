@@ -1,11 +1,11 @@
 // src/TrafficSignal.jsx
+import React, { useContext } from 'react';
 
-import React from 'react';
+import SignalContext from './context/SignalContext';
+
 import redSignal from './images/redSignal.jpeg';
 import yellowSignal from './images/yellowSignal.jpeg';
 import greenSignal from './images/greenSignal.jpeg';
-
-import SignalContext from './context/signalColorContext';
 
 const renderSignal = (signalColor) => {
   if (signalColor === 'red') return redSignal;
@@ -15,25 +15,22 @@ const renderSignal = (signalColor) => {
 };
 
 const TrafficSignal = () => {
+  const { signal, changeSignal } = useContext(SignalContext);
   return (
-    <SignalContext.Consumer>
-      {({ signal, changeSignal }) => (
-        <div>
-          <div className="button-container">
-            <button onClick={() => changeSignal('red')} type="button">
-              Red
-            </button>
-            <button onClick={() => changeSignal('yellow')} type="button">
-              Yellow
-            </button>
-            <button onClick={() => changeSignal('green')} type="button">
-              Green
-            </button>
-          </div>
-          <img className="signal" src={renderSignal(signal.color)} alt="" />
-        </div>
-      )}
-    </SignalContext.Consumer>
+    <div>
+      <div className="button-container">
+        <button onClick={() => changeSignal('red')} type="button">
+          Red
+        </button>
+        <button onClick={() => changeSignal('yellow')} type="button">
+          Yellow
+        </button>
+        <button onClick={() => changeSignal('green')} type="button">
+          Green
+        </button>
+      </div>
+      <img className="signal" src={renderSignal(signal.color)} alt="" />
+    </div>
   );
 };
 
